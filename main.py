@@ -59,6 +59,8 @@ def convert_to_docx(file):
         # Print a message to indicate that the conversion was successful
         print(f"Successfully converted '{file}' to '{file_name}.docx'.")
         return docx_file_path
+    else:
+        return None
 
 # Check if the directory exists
 if os.path.exists(search_directory) and os.path.isdir(search_directory):
@@ -68,7 +70,9 @@ if os.path.exists(search_directory) and os.path.isdir(search_directory):
     # Now, 'all_files' contains the names of all files in the "PDF's" directory
     print("List of files in the 'PDF's' directory:")
     for file in all_files:
-        argostranslatefiles.translate_file(underlying_translation, os.path.abspath(convert_to_docx(file)))
+        docx_path = convert_to_docx(file)
+        if docx_path is not None:
+            argostranslatefiles.translate_file(underlying_translation, os.path.abspath(docx_path))
 else:
     os.mkdir(search_directory)
     print(f"The '{directory_to_search}' directory does not exist in the current directory. Now, it has been created.")
